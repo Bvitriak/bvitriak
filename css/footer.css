@@ -1,0 +1,28 @@
+.site-footer {
+    padding: 28px 20px 24px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.site-footer a {
+    color: #9f71ff;
+    text-decoration: underline;
+}
+
+.site-footer a:hover {
+    text-decoration: none;
+}
+
+.copyright {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #a8a8d8;
+}
+
+.disclaimer {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #777;
+    line-height: 1.5;
+}

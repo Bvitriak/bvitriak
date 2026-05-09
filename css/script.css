@@ -1,0 +1,90 @@
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, #9f71ff, #66c0f4);
+    z-index: 999;
+    pointer-events: none;
+}
+
+.reveal-init {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    transition:
+            opacity 0.45s ease-out,
+            transform 0.45s cubic-bezier(0.19, 1, 0.22, 1),
+            box-shadow 0.35s ease-out;
+}
+
+.reveal-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+section.is-active .channel-block,
+section.is-active .about-block,
+section.is-active .contact-block {
+    box-shadow: 0 0 0 1px rgba(159, 113, 255, 0.5),
+    0 0 30px rgba(159, 113, 255, 0.25);
+}
+
+.btn-ripple {
+    position: absolute;
+    top: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    animation: btn-ripple 0.45s ease-out;
+}
+
+@keyframes btn-ripple {
+    from {
+        transform: translate(-50%, -50%) scale(0.05);
+        opacity: 0.55;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+.back-to-top {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: none;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #9f71ff);
+    color: #0f0f1c;
+    font-weight: 700;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    transform: translateY(14px) scale(0.9);
+    pointer-events: none;
+    transition:
+            opacity 0.25s ease-out,
+            transform 0.25s ease-out,
+            box-shadow 0.25s ease-out;
+    z-index: 998;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+}

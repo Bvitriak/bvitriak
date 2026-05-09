@@ -1,0 +1,22 @@
+#about {
+    padding: 40px 0;
+}
+
+.about-block {
+    background: #1a1a2c;
+    border-radius: 12px;
+    padding: 22px 20px;
+    border: 1px solid #333;
+    box-shadow: 0 0 0 1px rgba(100, 60, 255, 0.15);
+}
+
+.about-text {
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+    color: #c0c0e0;
+    line-height: 1.65;
+}
+
+.about-text:last-child {
+    margin-bottom: 0;
+}

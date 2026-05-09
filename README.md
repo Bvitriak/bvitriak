@@ -1,16 +1,38 @@
-## Hi there 👋
+# Bvitriak – Personal Landing Page
 
-<!--
-**Bvitriak/bvitriak** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+A single-page static landing site for **Bvitriak**, an independent video game reviewer and content creator.  
+The page aggregates social media profiles, review platforms, Steam-related services, and a contact section for collaborations.
 
-Here are some ideas to get you started:
+## Tech stack
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- HTML5 (`index.html`)
+- Modular CSS (`css/*.css`)
+- Vanilla JavaScript (`js/script.js`)
+
+## Project structure
+
+```text
+.
+├── index.html
+├── css
+│   ├── style.css
+│   ├── header.css
+│   ├── about.css
+│   ├── socials.css
+│   ├── contact.css
+│   ├── footer.css
+│   └── script.css
+├── js
+│   └── script.js
+├── img
+│   ├── logo.png
+│   ├── favicon/...
+│   ├── head/...
+│   └── socials/...
+└── .gitignore
+```
+
+## License
+
+Specify your preferred license here (for example, MIT, Apache-2.0, or a custom license).  
+Include a `LICENSE` file in the repository if you plan to make it public.
