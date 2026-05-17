@@ -34,5 +34,4 @@ The page aggregates social media profiles, review platforms, Steam-related servi
 
 ## License
 
-Specify your preferred license here (for example, MIT, Apache-2.0, or a custom license).  
-Include a `LICENSE` file in the repository if you plan to make it public.
+MIT LICENSE
