@@ -1,73 +1,87 @@
-* {
+/* =========================================================================
+   style.css — base layer: reset, design tokens, typography, background
+   Tokens are lifted straight from the Figma home-page design.
+   ========================================================================= */
+
+:root {
+    /* Palette (from Figma) */
+    --cream:            #fdf4d2;                    /* title, links (default) */
+    --cream-85:         rgba(253, 244, 210, 0.85);  /* music toggle          */
+    --cream-75:         rgba(253, 244, 210, 0.75);  /* bottom quote          */
+    --link-hover:       #fcfbf7;                    /* link on hover         */
+    --link-pressed:     #dcdcdc;                    /* link while pressed     */
+    --bg-deep:          #0c1a24;                    /* page backdrop / letterbox */
+    --bg-webp:          #124959;                    /* native colour of the bg art */
+
+    /* Text glow (drop shadows straight from Figma) */
+    --glow-cream:       5px 10px 4px rgba(253, 244, 210, 0.25);
+    --glow-cream-soft:  5px 5px 4px  rgba(253, 244, 210, 0.25);
+    --glow-cream-flat:  0px 5px 4px  rgba(253, 244, 210, 0.25);
+    --glow-white:       5px 10px 4px rgba(255, 255, 255, 0.25);
+
+    /* Type */
+    --font-pixel: "VT323", "Courier New", ui-monospace, monospace;
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);  /* gentle, symmetric ease-in-out */
+}
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 html {
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: #9f71ff #0b0b16;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #0b0b16;
-    border-left: 1px solid #181827;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #9f71ff, #66c0f4);
-    border-radius: 999px;
-    border: 2px solid #0b0b16;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #b188ff, #7bd3ff);
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: #0f0f1c;
-    color: #e0e0ff;
-    line-height: 1.6;
+    min-height: 100%;
+    background-color: var(--bg-deep);
+    color: var(--cream);
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.5px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    /* Nothing on the page is selectable (also kills the iOS long-press menu). */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 16px;
-}
-
-section {
-    padding: 32px 0;
-}
-
-section:last-of-type {
-    border-bottom: none;
-}
-
-h2 {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
-    color: #9f71ff;
-}
-
-ul {
-    list-style: none;
-    margin-top: 12px;
-}
-
-li a {
-    color: #9f71ff;
-    text-decoration: none;
-    padding: 6px 0;
+img {
     display: block;
+    max-width: 100%;
 }
 
-li a:hover {
-    text-decoration: underline;
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+/* Keyboard focus — matches the link hover treatment, no default outline halo. */
+:focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+    outline: none;
 }
