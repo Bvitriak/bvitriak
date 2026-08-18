@@ -6,15 +6,15 @@
     <meta name="theme-color" content="#0c1a24">
 
     <title>Bvitriak</title>
-    <meta name="description" content="Home of Bvitriak — an independent game reviewer and content creator. Explore my works, socials and certificates.">
-    <meta name="keywords" content="bvitriak, game reviewer, gaming, video games, game analysis, portfolio, content creator">
+    <meta name="description" content="Home of Bvitriak – a UX Engineer and content creator. Explore my works, socials and certificates.">
+    <meta name="keywords" content="bvitriak, ux engineer, user experience, ui, ux design, portfolio, content creator">
     <meta name="author" content="bvitriak">
 
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
     <meta property="og:title" content="Bvitriak">
-    <meta property="og:description" content="Welcome to my profile, stranger! An independent game reviewer and content creator.">
+    <meta property="og:description" content="Welcome to my profile, stranger! A UX Engineer and content creator.">
     <meta property="og:image" content="https://example.com/img/bg/home-bg-poster.jpg">
     <meta property="og:url" content="https://example.com/">
     <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bvitriak">
-    <meta name="twitter:description" content="Welcome to my profile, stranger! An independent game reviewer and content creator.">
+    <meta name="twitter:description" content="Welcome to my profile, stranger! A UX Engineer and content creator.">
     <meta name="twitter:image" content="https://example.com/img/bg/home-bg-poster.jpg">
 
     <link rel="icon" href="img/favicon/favicon.ico" sizes="any">
@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
 
-    <!-- The intro hides the content until JS reveals it; without JS, show it. -->
     <noscript>
         <style>
             .home__title, .home__nav, .home__quote, .home__music {
@@ -49,7 +48,6 @@
 </head>
 <body>
 <main class="home" id="home">
-    <!-- Animated night-city background. Reduced-motion users get the static poster. -->
     <picture class="home__bg" aria-hidden="true">
         <source media="(prefers-reduced-motion: reduce)" srcset="img/bg/home-bg-poster.jpg">
         <source srcset="img/bg/home-bg.webp" type="image/webp">
@@ -59,10 +57,10 @@
     <h1 class="home__title">Welcome to my profile, stranger!</h1>
 
     <nav class="home__nav" aria-label="Primary">
-        <a class="home__link" href="#about">About</a>
-        <a class="home__link" href="#works">Works</a>
-        <a class="home__link" href="#socials">Socials</a>
-        <a class="home__link" href="#certificates">Certificates</a>
+        <a class="home__link" href="pages/about.html" data-text="About">About</a>
+        <a class="home__link" href="pages/works.html" data-text="Works">Works</a>
+        <a class="home__link" href="pages/socials.html" data-text="Socials">Socials</a>
+        <a class="home__link" href="pages/certificates.html" data-text="Certificates">Certificates</a>
     </nav>
 
     <div class="home__foot">
@@ -73,13 +71,10 @@
         </button>
     </div>
 
-    <!-- Optional background track. Add a file and uncomment the <source> to
-         make the "music on" toggle actually play audio. -->
-    <audio class="home__audio" loop preload="none">
-        <!-- <source src="audio/theme.mp3" type="audio/mpeg"> -->
-    </audio>
+    <audio class="home__audio" preload="none"></audio>
 </main>
 
+<script src="js/no-context.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

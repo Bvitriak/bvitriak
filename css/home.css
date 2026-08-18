@@ -1,15 +1,3 @@
-/* =========================================================================
-   home.css — home page ("Welcome to my profile, stranger!")
-   Mobile-first. Breakpoints follow the three Figma frames:
-     base   < 768px   → Mobile  (360 × 740 reference)
-     ≥ 768px          → Tablet  (1024 × 768 reference)
-     ≥ 1200px         → Desktop (1920 × 1080 reference)
-
-   Intro: the background plays through ONCE (dark → lit), then the content is
-   revealed. JS adds `.is-revealed` to `.home` after the ~2.5s play-through;
-   until then the title/nav/footer are hidden (opacity 0).
-   ========================================================================= */
-
 .home {
     position: relative;
     width: 100%;
@@ -20,7 +8,6 @@
     background-color: var(--bg-webp);
 }
 
-/* --- Animated night-city background ---------------------------------------- */
 .home__bg,
 .home__bg img {
     position: absolute;
@@ -34,12 +21,9 @@
 .home__bg img {
     object-fit: cover;
     object-position: center bottom;
-    animation: home-fade-in 0.5s ease-out both;     /* just fade the art in;
-                                                       the "lights on" is baked
-                                                       into the webp itself */
+    animation: home-fade-in 0.5s ease-out both;
 }
 
-/* --- Title ----------------------------------------------------------------- */
 .home__title {
     position: absolute;
     top: 40px;
@@ -48,14 +32,12 @@
     padding-inline: 16px;
     text-align: center;
     font-weight: 400;
-    font-size: clamp(2rem, 13.3vw, 3rem);           /* 48px @ 360 */
+    font-size: clamp(2rem, 13.3vw, 3rem);
     line-height: 1.02;
     color: var(--cream);
-    text-shadow: 2px 10px 4px rgba(253, 244, 210, 0.25);
-    opacity: 0;                                     /* revealed after the intro */
+    opacity: 0;
 }
 
-/* --- Navigation ------------------------------------------------------------ */
 .home__nav {
     position: absolute;
     top: 50%;
@@ -69,44 +51,52 @@
 }
 
 .home__link {
+    position: relative;
     display: block;
     padding: 10px;
-    font-size: clamp(1.75rem, 10vw, 2.5rem);        /* 40px @ 400 */
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
+    --shadow-color: rgba(253, 244, 210, 0.25);
+    color: transparent;
+    text-shadow: 0px 5px 4px var(--shadow-color);
+    transition: text-shadow 0.2s ease;
+}
+
+.home__link::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    padding: inherit;
     color: var(--cream);
-    text-shadow: var(--glow-cream-flat);            /* mobile: 0px 5px 4px */
-    /* Hover stays snappy; the press "sink" eases slowly + smoothly back up. */
-    transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.55s var(--ease-smooth);
+    transition: color 0.2s ease, transform 0.55s var(--ease-smooth);
     will-change: transform;
 }
 
 .home__link:hover,
 .home__link:focus-visible {
+    --shadow-color: rgba(255, 255, 255, 0.25);
+}
+.home__link:hover::before,
+.home__link:focus-visible::before {
     color: var(--link-hover);
-    text-shadow: var(--glow-white);
 }
 
-/* Pressed — greys out, glow drops, glyph sinks down/right (Figma "Pressed").
-   Slow, smooth press-down for every property. */
 .home__link:active {
-    color: var(--link-pressed);
-    text-shadow: none;
-    transform: translate(5px, 10px);
-    transition: color 0.55s var(--ease-smooth),
-                text-shadow 0.55s var(--ease-smooth),
-                transform 0.55s var(--ease-smooth);
+    --shadow-color: transparent;
+    transition: text-shadow 0.55s var(--ease-smooth);
 }
 
-/* --- Footer (quote + music) ------------------------------------------------ */
-/* Mobile: a bottom-anchored, self-spacing column — music sits above the
-   quote (DOM order is quote → music, so column-reverse lifts music on top),
-   and the gap holds no matter how many lines the quote wraps to. */
+.home__link:active::before {
+    color: var(--link-pressed);
+    transform: translate(0, 5px);
+}
+
 .home__foot {
     position: absolute;
     left: 50%;
-    bottom: 16px;                                   /* quote pinned 16px from bottom */
+    bottom: 16px;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column-reverse;
@@ -118,7 +108,7 @@
 
 .home__quote {
     text-align: center;
-    font-size: 1.5rem;                              /* 24px */
+    font-size: 1.5rem;
     line-height: 1.15;
     text-transform: uppercase;
     color: var(--cream-75);
@@ -126,7 +116,7 @@
 }
 
 .home__music {
-    font-size: 2.25rem;                             /* 36px */
+    font-size: 2.25rem;
     line-height: 1;
     color: var(--cream-85);
     text-transform: lowercase;
@@ -134,36 +124,29 @@
     opacity: 0;
 }
 
-/* Hover only brightens the label — no glow/shadow. */
 .home__music:hover,
 .home__music:focus-visible {
     color: var(--link-hover);
 }
 
-/* Subtle pulse while a track is actually playing. */
 .home__music.is-playing .home__music-state {
     animation: home-pulse 1.6s ease-in-out infinite;
 }
 
-/* --- Reveal: run the entrance animations once the intro is over ------------ */
-.home.is-revealed .home__title { animation: home-appear 0.7s var(--ease-out) 0s    both; }
-.home.is-revealed .home__nav   { animation: home-appear 0.7s var(--ease-out) 0.3s  both; }
+.home.is-revealed .home__title { animation: home-appear 0.7s var(--ease-out) 0s both; }
+.home.is-revealed .home__nav { animation: home-appear 0.7s var(--ease-out) 0.3s both; }
 .home.is-revealed .home__quote { animation: home-appear 0.7s var(--ease-out) 0.55s both; }
-.home.is-revealed .home__music { animation: home-appear 0.7s var(--ease-out) 0.7s  both; }
+.home.is-revealed .home__music { animation: home-appear 0.7s var(--ease-out) 0.7s both; }
 
-/* =========================================================================
-   Tablet — ≥ 768px  (Figma 1024 × 768)
-   ========================================================================= */
-@media (min-width: 768px) {
+.home[inert],
+.home[inert] * {
+    cursor: none;
+}
+
+@media (min-width: 1024px) {
     .home__title {
-        left: clamp(24px, 11.2vw, 160px);
-        right: auto;
         top: 50px;
-        padding-inline: 0;
-        text-align: left;
-        font-size: clamp(3rem, 6.25vw, 4.5rem);     /* 64px @ 1024 */
-        text-shadow: var(--glow-cream);             /* 5px 10px 4px */
-        white-space: nowrap;
+        font-size: clamp(3rem, 6.25vw, 4.5rem);
     }
 
     .home__nav {
@@ -176,20 +159,20 @@
     }
 
     .home__link {
-        font-size: 2.5rem;                          /* 40px */
-        text-shadow: var(--glow-cream-soft);        /* 5px 5px 4px */
+        font-size: 2.5rem;
+        text-shadow: 5px 5px 4px var(--shadow-color);
+    }
+    .home__link:active::before {
+        transform: translate(5px, 5px);
     }
 
-    /* Footer dissolves — quote and music return to their absolute corners. */
     .home__foot {
         display: contents;
     }
 
     .home__quote {
         position: absolute;
-        bottom: 16px;                               /* pinned 16px from bottom */
-        /* Symmetric reserved band keeps the quote viewport-centered while
-           guaranteeing it never reaches the bottom-right music toggle. */
+        bottom: 16px;
         left: 176px;
         right: 176px;
         padding-inline: 0;
@@ -199,19 +182,14 @@
         position: absolute;
         right: 24px;
         bottom: 24px;
-        font-size: 2.5rem;                          /* 40px */
+        font-size: 2.5rem;
     }
 }
 
-/* =========================================================================
-   Desktop — ≥ 1200px  (Figma 1920 × 1080)
-   ========================================================================= */
-@media (min-width: 1200px) {
+@media (min-width: 1920px) {
     .home__title {
         top: clamp(48px, 9.26vh, 100px);
-        left: clamp(32px, 8.65vw, 166px);
-        font-size: clamp(5rem, 6.67vw, 8rem);       /* 128px @ 1920 */
-        text-shadow: var(--glow-cream);
+        font-size: clamp(5rem, 6.67vw, 8rem);
     }
 
     .home__nav {
@@ -220,43 +198,40 @@
     }
 
     .home__link {
-        font-size: clamp(2.5rem, 3.33vw, 4rem);     /* 64px @ 1920 */
-        text-shadow: var(--glow-cream);             /* 5px 10px 4px */
+        font-size: clamp(2.5rem, 3.33vw, 4rem);
+        text-shadow: 5px 10px 4px var(--shadow-color);
+    }
+    .home__link:active::before {
+        transform: translate(5px, 10px);
     }
 
     .home__quote {
-        bottom: 24px;                               /* pinned 24px from bottom */
-        font-size: 2rem;                            /* 32px */
+        bottom: 24px;
+        font-size: 2rem;
     }
 
     .home__music {
         right: clamp(16px, 1.82vw, 35px);
         bottom: clamp(20px, 3.24vh, 35px);
-        font-size: clamp(2.5rem, 3.33vw, 4rem);     /* 64px @ 1920 */
+        font-size: clamp(2.5rem, 3.33vw, 4rem);
     }
 }
 
-/* =========================================================================
-   Motion keyframes
-   ========================================================================= */
 @keyframes home-appear {
     from { opacity: 0; filter: blur(6px); }
-    to   { opacity: 1; filter: blur(0); }
+    to { opacity: 1; filter: blur(0); }
 }
 
 @keyframes home-fade-in {
     from { opacity: 0; }
-    to   { opacity: 1; }
+    to { opacity: 1; }
 }
 
 @keyframes home-pulse {
     0%, 100% { opacity: 1; }
-    50%      { opacity: 0.55; }
+    50% { opacity: 0.55; }
 }
 
-/* Respect users who prefer less motion: skip the intro entirely — the static
-   poster shows (via <picture>) and every element is visible immediately.
-   (JS also skips adding .is-revealed for these users.) */
 @media (prefers-reduced-motion: reduce) {
     .home__title,
     .home__nav,

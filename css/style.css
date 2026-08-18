@@ -1,30 +1,18 @@
-/* =========================================================================
-   style.css — base layer: reset, design tokens, typography, background
-   Tokens are lifted straight from the Figma home-page design.
-   ========================================================================= */
-
 :root {
-    /* Palette (from Figma) */
-    --cream:            #fdf4d2;                    /* title, links (default) */
-    --cream-85:         rgba(253, 244, 210, 0.85);  /* music toggle          */
-    --cream-75:         rgba(253, 244, 210, 0.75);  /* bottom quote          */
-    --link-hover:       #fcfbf7;                    /* link on hover         */
-    --link-pressed:     #dcdcdc;                    /* link while pressed     */
-    --bg-deep:          #0c1a24;                    /* page backdrop / letterbox */
-    --bg-webp:          #124959;                    /* native colour of the bg art */
-
-    /* Text glow (drop shadows straight from Figma) */
-    --glow-cream:       5px 10px 4px rgba(253, 244, 210, 0.25);
-    --glow-cream-soft:  5px 5px 4px  rgba(253, 244, 210, 0.25);
-    --glow-cream-flat:  0px 5px 4px  rgba(253, 244, 210, 0.25);
-    --glow-white:       5px 10px 4px rgba(255, 255, 255, 0.25);
-
-    /* Type */
+    --cream: #fdf4d2;
+    --cream-85: rgba(253, 244, 210, 0.85);
+    --cream-75: rgba(253, 244, 210, 0.75);
+    --link-hover: #fcfbf7;
+    --link-pressed: #dcdcdc;
+    --bg-deep: #0c1a24;
+    --bg-webp: #124959;
+    --glow-cream: 5px 10px 4px rgba(253, 244, 210, 0.25);
+    --glow-cream-soft: 5px 5px 4px rgba(253, 244, 210, 0.25);
+    --glow-cream-flat: 0px 5px 4px rgba(253, 244, 210, 0.25);
+    --glow-white: 5px 10px 4px rgba(255, 255, 255, 0.25);
     --font-pixel: "VT323", "Courier New", ui-monospace, monospace;
-
-    /* Motion */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);  /* gentle, symmetric ease-in-out */
+    --ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);
 }
 
 *,
@@ -52,10 +40,10 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    /* Nothing on the page is selectable (also kills the iOS long-press menu). */
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
+    cursor: url("../img/cursor/cursor.png") 0 0, auto;
 }
 
 img {
@@ -66,6 +54,7 @@ img {
 a {
     color: inherit;
     text-decoration: none;
+    cursor: url("../img/cursor/pointer.png") 4 1, pointer;
 }
 
 button {
@@ -73,10 +62,9 @@ button {
     color: inherit;
     background: none;
     border: 0;
-    cursor: pointer;
+    cursor: url("../img/cursor/pointer.png") 4 1, pointer;
 }
 
-/* Keyboard focus — matches the link hover treatment, no default outline halo. */
 :focus-visible {
     outline: 2px solid var(--link-hover);
     outline-offset: 4px;
