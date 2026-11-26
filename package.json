@@ -27,6 +27,6 @@
     "@types/three": "0.187.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.4.6",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.3"
   }
 }
