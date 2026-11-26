@@ -1,0 +1,135 @@
+.loadingScreen {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 520ms;
+}
+
+.loadingScreen[hidden] {
+  display: none;
+}
+
+.leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loadingLine {
+  position: absolute;
+  top: clamp(18px, 3.5vh, 40px);
+  left: 50%;
+  width: clamp(48px, 5.5vw, 88px);
+  height: 2px;
+  overflow: hidden;
+  background: var(--color-line);
+  transform: translateX(-50%);
+}
+
+.loadingLine::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -38%;
+  width: 38%;
+  background: currentColor;
+  content: "";
+  animation: loadingSweep 1.05s cubic-bezier(0.62, 0.01, 0.42, 1) infinite;
+}
+
+.loadingIdentity {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(8px, 1.1vw, 18px);
+  padding-inline: clamp(18px, 4vw, 48px);
+  white-space: nowrap;
+  animation: identityReveal 680ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loadingName {
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 4.6rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+
+.loadingDescriptor {
+  color: var(--color-muted);
+  font-family: var(--font-display), Arial, sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.6rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+@keyframes loadingSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(360%);
+  }
+}
+
+@keyframes identityReveal {
+  from {
+    opacity: 0.72;
+    transform: translateY(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .loadingIdentity {
+    gap: 8px;
+  }
+
+  .loadingName {
+    font-size: clamp(2.3rem, 10vw, 3.8rem);
+  }
+
+  .loadingDescriptor {
+    font-size: clamp(1.7rem, 7.4vw, 2.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingLine::after {
+    left: 0;
+    width: 100%;
+    animation: none;
+  }
+
+  .loadingIdentity {
+    animation: none;
+  }
+
+  .loadingScreen {
+    transition: none;
+  }
+}
