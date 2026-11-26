@@ -1,0 +1,26 @@
+:root {
+  color-scheme: dark;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-muted: #a2a39f;
+  --color-subtle: #747671;
+  --color-line: rgb(238 237 232 / 16%);
+  --color-line-strong: rgb(255 255 255 / 86%);
+  --color-accent: #d7d8d3;
+  --page-width: 1512px;
+  --page-gutter: clamp(20px, 4vw, 64px);
+  --font-display: var(--font-advent-pro-latin), var(--font-advent-pro-cyrillic), Arial, sans-serif;
+  --font-sans: var(--font-jura-latin), var(--font-jura-cyrillic), Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono-latin), var(--font-jetbrains-mono-cyrillic), monospace;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-background: #eeeee9;
+  --color-foreground: #222520;
+  --color-muted: #656b63;
+  --color-subtle: #898e86;
+  --color-line: rgb(34 37 32 / 18%);
+  --color-line-strong: rgb(34 37 32 / 82%);
+  --color-accent: #546952;
+}

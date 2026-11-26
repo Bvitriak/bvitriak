@@ -1,0 +1,33 @@
+# Dependencies
+/node_modules/
+/.pnp
+.pnp.*
+
+# Next.js and hosting artifacts
+/.next/
+/out/
+/.vercel/
+/next-env.d.ts
+
+# Build and test artifacts
+/build/
+/dist/
+/coverage/
+*.tsbuildinfo
+
+# Local environment files and keys
+.env
+.env.*
+!/.env.example
+*.pem
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.log
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
