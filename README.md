@@ -2,25 +2,14 @@
   <h1>Hey, I'm Bvitriak ✦</h1>
   <p><strong>Designer &amp; Developer</strong></p>
   <p><sub>Born in 2007 · Krasnoyarsk, Russia</sub></p>
-  <p><a href="https://bvitriak.github.io/bvitriak/">Visit the portfolio ↗</a></p>
   <p><em>Calm interfaces. Precise systems. Thoughtful motion.</em></p>
 </div>
 
 <hr />
 
 <div align="center">
-  <img src="./assets/black-hole.jpg" width="100%" alt="A monochrome black hole and its accretion disk" />
-</div>
-
-<br />
-
-<div align="center">
-  <a href="https://x.com/Bitriak">
-    <img src="https://img.shields.io/badge/X-111111?style=for-the-badge&amp;logo=x&amp;logoColor=white" height="28" alt="X" />
-  </a>
-  &nbsp;
-  <a href="https://www.linkedin.com/in/bvitriak">
-    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" height="28" alt="LinkedIn" />
+  <a href="https://github.com/Bvitriak">
+    <img src="./assets/black-hole.jpg" width="100%" alt="A monochrome black hole and its accretion disk" />
   </a>
 </div>
 
