@@ -30,7 +30,7 @@ Verified on 27 November 2026 for `Bvitriak/bvitriak`.
 - Administrator enforcement is enabled.
 - Force pushes and branch deletion are blocked.
 - Linear history and pull request conversation resolution are required.
-- Required status checks are pending the first pull request workflow run. Add the exact CI check name after GitHub reports it.
+- Required status check: GitHub Actions `quality`; it must pass against the latest `main` commit before merging.
 
 ## Issues and project tracking
 
