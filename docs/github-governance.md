@@ -8,7 +8,7 @@ Verified on 27 November 2026 for `Bvitriak/bvitriak`.
 - Default branch: `main`.
 - Issues and Projects are enabled. Pull requests are enabled.
 - Repository description: `Bvitriak portfolio – design and development`.
-- Homepage: `https://bvitriak.github.io/bvitriak/`.
+- Homepage: `https://www.bvitriak.site/`.
 - Repository topics: `github-pages`, `nextjs`, `portfolio`.
 - Merge methods: squash and rebase. Merge commits are disabled to keep history linear.
 - Merged head branches are deleted automatically.
@@ -18,7 +18,7 @@ Verified on 27 November 2026 for `Bvitriak/bvitriak`.
 ## GitHub Pages
 
 - Build source: GitHub Actions (`build_type: workflow`).
-- Pages URL: `https://bvitriak.github.io/bvitriak/`.
+- Pages URL: `https://www.bvitriak.site/`.
 - The deployment workflow runs on pushes to `main` or manual dispatch from `main`.
 - The workflow builds with the repository base path and deploys through the `github-pages` environment.
 - The Pages environment deployment policy permits only `main`.

@@ -10,16 +10,10 @@
 
 Команда `pnpm build` создаёт каталог `out/`. Его содержимое размещается на статическом хостинге с поддержкой путей `/` и `/ru/`.
 
-Перед публикацией настройте HTTPS и защитные HTTP-заголовки на выбранном хостинге. Домен не задан, поэтому канонический адрес и sitemap пока не добавлены.
+## GitHub Pages
 
-## Публикация на GitHub Pages
+The deploy workflow publishes the static export from `main` at <https://www.bvitriak.site/>. Pages manages the custom domain and enforces HTTPS. English is served at `/` and Russian at `/ru/`. Both locales load styles, scripts, fonts, and the favicon from the domain root.
 
-Workflow `.github/workflows/deploy.yml` собирает сайт и публикует его на GitHub Pages при каждом push в `main`. Его также можно запустить вручную из вкладки Actions, выбрав ветку `main`. Workflow запускает `pnpm check`, собирает статический экспорт в `out/` и передаёт его GitHub Pages. Отдельный workflow `.github/workflows/ci.yml` проверяет pull request и push в `main`.
+Pull requests run `pnpm check` before merging. To publish the current version of `main` again, run the deploy workflow from the Actions tab.
 
-В репозитории уже выбран источник GitHub Actions. Первый реальный деплой произойдёт после того, как workflow попадёт в `main` и запустится на этой ветке. Workflow собирает сайт и публикует его по адресу `https://bvitriak.github.io/bvitriak/`.
-
-Во время сборки GitHub Pages передаёт путь репозитория через `NEXT_BASE_PATH`; Next.js добавляет его к ссылкам и собранным локальным шрифтам. Обычная локальная сборка без этой переменной продолжает обслуживаться из `/`.
-
-Настройки основной ветки, Pages, Actions, Issue и Kanban Project описаны в [`github-governance.md`](./github-governance.md).
-
-Dependabot раз в неделю проверяет обновления npm-зависимостей и GitHub Actions. Шаблон pull request напоминает связать изменения с задачей и указать результат `pnpm check`.
+See [GitHub governance](./github-governance.md) for repository settings.
