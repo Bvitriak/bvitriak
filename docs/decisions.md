@@ -30,6 +30,8 @@ Jura используется в начертании Light для имени и
 
 Three.js загружается динамически после гидратации. Шейдер формирует мягкое световое облако через независимые движущиеся поля шума, доменное искажение и плавный контур. Множитель времени GLSL снижен с `2.7` до `1.8`, что замедляет движение в 1,5 раза. Слои меняют форму непрерывно и не реагируют на курсор; пиксельного зерна нет. В тёмной теме фон остаётся чисто чёрным, облако только добавляет свет. Рендер ограничивает `devicePixelRatio` значением 2 на широких экранах и 1,5 на узких; на мобильных частота кадров ограничена 30 кадрами в секунду. При `prefers-reduced-motion` шейдер рисуется один раз; скрытая вкладка приостанавливает кадры, а обработчики, геометрия, материал и renderer очищаются при размонтировании.
 
+The smoke shader uses a minimum aspect ratio for narrow screens and keeps a soft layer of haze visible as the cloud moves. An animated CSS background covers startup, unavailable WebGL, and context loss. The canvas becomes visible after a successful render and resumes when WebGL is restored. Both backgrounds honor reduced motion.
+
 ## GitHub Pages
 
 The deployment and local build both export the site at the domain root. GitHub Actions publishes from `main` to <https://www.bvitriak.site/>.
