@@ -6,6 +6,9 @@
   height: calc(100svh - var(--frame-gap) - var(--frame-gap));
   min-height: 0;
   --frame-gap: clamp(14px, 2.6vw, 44px);
+  --navigation-size: 15px;
+  --navigation-gap: 21px;
+  --side-label-size: 10px;
   --identity-size: clamp(2.6rem, 4.6vw, 4.8rem);
   flex-direction: column;
   overflow: visible;
@@ -67,12 +70,18 @@
 }
 
 .role {
+  --role-sidebearing: 0.092em;
   margin-top: 7px;
-  padding-inline-start: 0.42em;
+  /* Align the visible edges of the first letters in Jura. */
+  padding-inline-start: calc(0.09 * var(--identity-size) - var(--role-sidebearing));
   color: var(--color-foreground);
   font-size: clamp(13px, 1vw, 16px);
   font-weight: 350;
   letter-spacing: -0.025em;
+}
+
+.role:lang(ru) {
+  --role-sidebearing: 0.01em;
 }
 
 .navigation {
@@ -80,7 +89,7 @@
   width: fit-content;
   flex-direction: column;
   align-items: flex-start;
-  gap: 21px;
+  gap: var(--navigation-gap);
   margin-top: clamp(86px, 13vh, 220px);
 }
 
@@ -93,7 +102,7 @@
   align-items: center;
   padding-inline-start: calc(var(--marker-size) + var(--marker-gap));
   color: var(--color-foreground);
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 600;
   letter-spacing: -0.025em;
   transition: color 180ms ease;
@@ -144,10 +153,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 7px;
+  gap: 3.5px;
   color: var(--color-subtle);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.06em;
 }
 
@@ -196,7 +205,7 @@
   max-width: 68ch;
   margin: 0;
   text-align: right;
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.5;
@@ -244,7 +253,7 @@
   gap: 9px;
   color: var(--color-foreground);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--navigation-size);
   font-weight: 400;
   line-height: 1.45;
 }
@@ -263,8 +272,7 @@
 .socialLink {
   display: block;
   width: fit-content;
-  min-height: 24px;
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 550;
   transition: color 180ms ease;
 }
@@ -280,7 +288,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 4px;
+  gap: var(--navigation-gap);
   margin: 0;
 }
 
@@ -299,7 +307,7 @@
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;
-  font-size: 10px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.05em;
   line-height: 1;
   text-transform: uppercase;
@@ -337,7 +345,7 @@
   gap: 20px;
   color: var(--color-muted);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.035em;
 }
 
@@ -353,7 +361,8 @@
 
 @media (max-width: 760px) {
   .page {
-    --frame-gap: clamp(12px, 3.5vw, 20px);
+    --navigation-size: clamp(10px, 3.3vw, 13px);
+    --navigation-gap: clamp(10px, 1.8svh, 16px);
     --identity-size: clamp(1.55rem, 7.5vw, 2.4rem);
   }
 
@@ -372,7 +381,6 @@
 
   .role {
     margin-top: 5px;
-    padding-inline-start: 0.42em;
     font-size: clamp(10px, 3vw, 12px);
   }
 
@@ -380,7 +388,6 @@
     width: fit-content;
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: clamp(10px, 1.8svh, 16px);
     margin-top: clamp(38px, 8svh, 82px);
   }
 
@@ -388,7 +395,6 @@
   .navigationCurrent {
     --marker-size: clamp(5px, 1.5vw, 6px);
     --marker-gap: clamp(5px, 1.5vw, 7px);
-    font-size: clamp(10px, 3.3vw, 13px);
   }
 
   .stage {
@@ -416,11 +422,6 @@
     padding-bottom: var(--stage-right-inset);
   }
 
-  .homeStatement {
-    max-width: 68ch;
-    font-size: clamp(10px, 2.9vw, 12px);
-  }
-
   .projectRow {
     gap: 6px;
     padding: clamp(7px, 1.25svh, 13px) 0;
@@ -428,36 +429,19 @@
 
   .projectMeta {
     flex-wrap: wrap;
-    gap: 6px;
+    column-gap: 6px;
+    row-gap: 0;
     font-size: clamp(7px, 2.25vw, 9px);
-  }
-
-  .socialLink {
-    font-size: clamp(10px, 3vw, 12px);
-  }
-
-  .contactSocials .socialLink {
-    min-height: 26px;
-    font-size: 12px;
   }
 
   .footer {
     gap: 8px;
-    font-size: 8px;
   }
 }
 
 @media (max-width: 430px) {
-  .language {
-    font-size: 9px;
-  }
-
   .contactPanel {
     gap: 12px;
-  }
-
-  .contactSocials .socialLink {
-    font-size: 10px;
   }
 }
 
@@ -488,6 +472,7 @@
 
 @media (max-width: 760px) and (max-height: 650px) {
   .page {
+    --navigation-gap: 8px;
     --identity-size: clamp(1.45rem, 7vw, 2.1rem);
   }
 
@@ -501,7 +486,6 @@
   }
 
   .navigation {
-    gap: 8px;
     margin-top: 12px;
   }
 
@@ -514,10 +498,6 @@
     padding-bottom: var(--stage-right-inset);
   }
 
-  .homeStatement {
-    font-size: 11px;
-  }
-
   .projectRow {
     gap: 4px;
     padding: 4.5px 0;
@@ -526,5 +506,46 @@
   .projectMeta {
     font-size: 8px;
   }
+}
 
+@media (width > 760px) and (pointer: coarse) and (max-height: 650px) {
+  .projectMeta {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 760px), (pointer: coarse) and (max-height: 650px) {
+  .page {
+    --frame-gap: clamp(24px, 3.5vw, 28px);
+  }
+
+  .sideControls {
+    left: 0;
+    width: calc(var(--frame-gap) - 4px);
+    align-items: center;
+    gap: 15px;
+  }
+
+  .language,
+  .themeOptions {
+    align-items: center;
+  }
+
+  .language {
+    gap: 6px;
+  }
+
+  .themeOptions {
+    gap: 12px;
+  }
+
+  .language a,
+  .themeOption {
+    display: inline-flex;
+    min-width: 20px;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    padding-block: 3px;
+  }
 }

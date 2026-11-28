@@ -23,7 +23,6 @@ export type Translation = {
     openGraphLocale: string;
   };
   skip: string;
-  brandHome: string;
   navigation: {
     label: string;
     index: string;
@@ -69,7 +68,6 @@ export const translations: Record<Locale, Translation> = {
       openGraphLocale: "en_US",
     },
     skip: "Skip to content",
-    brandHome: "Bvitriak, home",
     navigation: {
       label: "Main navigation",
       index: "Home",
@@ -129,7 +127,6 @@ export const translations: Record<Locale, Translation> = {
       openGraphLocale: "ru_RU",
     },
     skip: "Перейти к содержимому",
-    brandHome: "Bvitriak, на главную",
     navigation: {
       label: "Основная навигация",
       index: "Главная",

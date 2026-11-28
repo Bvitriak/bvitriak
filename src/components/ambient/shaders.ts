@@ -60,7 +60,7 @@ export const fragmentShader = /* glsl */ `
   }
 
   void main() {
-    float aspect = uResolution.x / max(uResolution.y, 1.0);
+    float aspect = max(uResolution.x / max(uResolution.y, 1.0), 0.8);
     vec2 point = (vUv - 0.5) * vec2(aspect, 1.0);
 
     float time = uTime * 1.8;
@@ -89,6 +89,10 @@ export const fragmentShader = /* glsl */ `
     float density = smoothstep(0.18, 0.82, field + wave * 0.16 + (detail - 0.5) * 0.25);
     float cloud = sphere * (0.52 + density * 0.48);
     float amount = clamp(cloud * (0.16 + density * 0.72), 0.0, 0.68);
+    float veil = 1.0 - smoothstep(
+      0.0, 0.72, length((vUv - vec2(0.37, 0.5)) * vec2(1.2, 1.0))
+    );
+    amount = max(amount, veil * 0.12);
 
     vec3 darkBase = vec3(0.0);
     vec3 lightBase = vec3(0.933, 0.933, 0.912);

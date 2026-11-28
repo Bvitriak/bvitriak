@@ -16,22 +16,19 @@ export function AmbientCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvasRefValue = canvasRef.current;
-    if (!canvasRefValue) return;
-    const canvasElement: HTMLCanvasElement = canvasRefValue;
-    const hostElement = canvasElement.parentElement as HTMLElement;
-    if (!hostElement) return;
+    const canvas = canvasRef.current;
+    const host = canvas?.parentElement;
+    if (!canvas || !host) return;
 
     let disposed = false;
     let detach = () => {};
 
-    async function initialize() {
+    async function initialize(canvas: HTMLCanvasElement, host: HTMLElement) {
       let THREE: typeof import("three");
       try {
         THREE = await import("three");
       } catch {
-        canvasElement.hidden = true;
-        markAmbientReady();
+        if (!disposed) markAmbientReady();
         return;
       }
       if (disposed) return;
@@ -39,13 +36,12 @@ export function AmbientCanvas() {
       let renderer: WebGLRenderer;
       try {
         renderer = new THREE.WebGLRenderer({
-          canvas: canvasElement,
+          canvas,
           antialias: false,
           alpha: false,
           powerPreference: "low-power",
         });
       } catch {
-        canvasElement.hidden = true;
         markAmbientReady();
         return;
       }
@@ -54,7 +50,7 @@ export function AmbientCanvas() {
       const camera = new THREE.Camera();
       const isSmallScreen = () => window.matchMedia("(max-width: 680px)").matches;
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const bounds = hostElement.getBoundingClientRect();
+      const bounds = host.getBoundingClientRect();
       const uniforms = {
         uResolution: {
           value: new THREE.Vector2(Math.max(bounds.width, 1), Math.max(bounds.height, 1)),
@@ -78,11 +74,13 @@ export function AmbientCanvas() {
       scene.add(new THREE.Mesh(geometry, material));
 
       let animationFrame = 0;
-      let lastMobileFrame = 0;
-      let hasRendered = false;
+      let lastFrame = -Infinity;
+      let contextLost = false;
+      const startTime = performance.now();
 
       function resize() {
-        const { width, height } = hostElement.getBoundingClientRect();
+        if (contextLost) return;
+        const { width, height } = host.getBoundingClientRect();
         if (width < 1 || height < 1) return;
 
         const pixelRatio = Math.min(
@@ -92,28 +90,44 @@ export function AmbientCanvas() {
         renderer.setPixelRatio(pixelRatio);
         renderer.setSize(width, height, false);
         uniforms.uResolution.value.set(width, height);
-        if (reducedMotion.matches) draw(0);
+        refresh();
       }
 
       function draw(timestamp: number) {
-        if (disposed) return;
+        if (disposed || contextLost || document.hidden) return;
 
-        if (isSmallScreen() && timestamp - lastMobileFrame < 32) {
-          animationFrame = window.requestAnimationFrame(draw);
-          return;
+        if (reducedMotion.matches || !isSmallScreen() || timestamp - lastFrame >= 32) {
+          lastFrame = timestamp;
+          uniforms.uTime.value = reducedMotion.matches ? 0 : (timestamp - startTime) / 1000;
+          renderer.render(scene, camera);
+          if (!host.hasAttribute("data-canvas-ready")) {
+            host.setAttribute("data-canvas-ready", "");
+            markAmbientReady();
+          }
         }
 
-        lastMobileFrame = timestamp;
-        uniforms.uTime.value = reducedMotion.matches ? 0 : timestamp * 0.001;
-        renderer.render(scene, camera);
-        if (!hasRendered) {
-          hasRendered = true;
-          markAmbientReady();
-        }
-
-        if (!reducedMotion.matches && !document.hidden) {
+        if (!reducedMotion.matches) {
           animationFrame = window.requestAnimationFrame(draw);
         }
+      }
+
+      function refresh() {
+        window.cancelAnimationFrame(animationFrame);
+        lastFrame = -Infinity;
+        draw(performance.now());
+      }
+
+      function onContextLost(event: Event) {
+        event.preventDefault();
+        contextLost = true;
+        host.removeAttribute("data-canvas-ready");
+        refresh();
+        markAmbientReady();
+      }
+
+      function onContextRestored() {
+        contextLost = false;
+        resize();
       }
 
       function onScroll() {
@@ -123,19 +137,9 @@ export function AmbientCanvas() {
         );
       }
 
-      function onVisibilityChange() {
-        window.cancelAnimationFrame(animationFrame);
-        if (!document.hidden) draw(reducedMotion.matches ? 0 : performance.now());
-      }
-
-      function onMotionChange() {
-        window.cancelAnimationFrame(animationFrame);
-        draw(reducedMotion.matches ? 0 : performance.now());
-      }
-
       const themeObserver = new MutationObserver(() => {
         uniforms.uLight.value = document.documentElement.dataset.theme === "light" ? 1 : 0;
-        if (reducedMotion.matches) draw(0);
+        if (reducedMotion.matches) refresh();
       });
       themeObserver.observe(document.documentElement, {
         attributes: true,
@@ -143,23 +147,29 @@ export function AmbientCanvas() {
       });
       const resizeObserver =
         typeof ResizeObserver === "undefined" ? null : new ResizeObserver(resize);
-      resizeObserver?.observe(hostElement);
+      resizeObserver?.observe(host);
 
       window.addEventListener("resize", resize, { passive: true });
       window.addEventListener("scroll", onScroll, { passive: true });
-      document.addEventListener("visibilitychange", onVisibilityChange);
-      reducedMotion.addEventListener("change", onMotionChange);
+      window.addEventListener("pageshow", refresh);
+      document.addEventListener("visibilitychange", refresh);
+      reducedMotion.addEventListener("change", refresh);
+      canvas.addEventListener("webglcontextlost", onContextLost);
+      canvas.addEventListener("webglcontextrestored", onContextRestored);
 
-      resize();
       onScroll();
-      draw(reducedMotion.matches ? 0 : performance.now());
+      resize();
 
       detach = () => {
         window.cancelAnimationFrame(animationFrame);
         window.removeEventListener("resize", resize);
         window.removeEventListener("scroll", onScroll);
-        document.removeEventListener("visibilitychange", onVisibilityChange);
-        reducedMotion.removeEventListener("change", onMotionChange);
+        window.removeEventListener("pageshow", refresh);
+        document.removeEventListener("visibilitychange", refresh);
+        reducedMotion.removeEventListener("change", refresh);
+        canvas.removeEventListener("webglcontextlost", onContextLost);
+        canvas.removeEventListener("webglcontextrestored", onContextRestored);
+        host.removeAttribute("data-canvas-ready");
         resizeObserver?.disconnect();
         themeObserver.disconnect();
         geometry.dispose();
@@ -168,7 +178,7 @@ export function AmbientCanvas() {
       };
     }
 
-    void initialize();
+    void initialize(canvas, host);
 
     return () => {
       disposed = true;
@@ -176,5 +186,9 @@ export function AmbientCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />;
+  return (
+    <div className={styles.background} aria-hidden="true">
+      <canvas ref={canvasRef} className={styles.canvas} />
+    </div>
+  );
 }
