@@ -38,7 +38,6 @@ function handleLanguageSwitch(event: MouseEvent<HTMLAnchorElement>) {
 
 export function Portfolio({ locale }: { locale: Locale }) {
   const copy = translations[locale];
-  const homePath = locale === "en" ? "/" : "/ru/";
   const activeSection = useActiveSection();
   const sectionLabel = {
     home: copy.navigation.index,
@@ -70,10 +69,10 @@ export function Portfolio({ locale }: { locale: Locale }) {
         <div className={styles.frame}>
           <AmbientCanvas />
           <aside className={styles.sidebar}>
-            <Link className={styles.identity} href={homePath} aria-label={copy.brandHome}>
+            <div className={styles.identity}>
               <h1 className={styles.name}>Bvitriak</h1>
               <span className={styles.role}>{copy.hero.role}</span>
-            </Link>
+            </div>
 
             <SectionNavigation locale={locale} />
           </aside>

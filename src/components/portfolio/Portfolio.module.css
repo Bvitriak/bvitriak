@@ -6,6 +6,8 @@
   height: calc(100svh - var(--frame-gap) - var(--frame-gap));
   min-height: 0;
   --frame-gap: clamp(14px, 2.6vw, 44px);
+  --navigation-size: 15px;
+  --side-label-size: 10px;
   --identity-size: clamp(2.6rem, 4.6vw, 4.8rem);
   flex-direction: column;
   overflow: visible;
@@ -93,7 +95,7 @@
   align-items: center;
   padding-inline-start: calc(var(--marker-size) + var(--marker-gap));
   color: var(--color-foreground);
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 600;
   letter-spacing: -0.025em;
   transition: color 180ms ease;
@@ -147,7 +149,7 @@
   gap: 7px;
   color: var(--color-subtle);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.06em;
 }
 
@@ -196,7 +198,7 @@
   max-width: 68ch;
   margin: 0;
   text-align: right;
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.5;
@@ -244,7 +246,7 @@
   gap: 9px;
   color: var(--color-foreground);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--navigation-size);
   font-weight: 400;
   line-height: 1.45;
 }
@@ -264,7 +266,7 @@
   display: block;
   width: fit-content;
   min-height: 24px;
-  font-size: 15px;
+  font-size: var(--navigation-size);
   font-weight: 550;
   transition: color 180ms ease;
 }
@@ -299,7 +301,7 @@
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;
-  font-size: 10px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.05em;
   line-height: 1;
   text-transform: uppercase;
@@ -337,7 +339,7 @@
   gap: 20px;
   color: var(--color-muted);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--side-label-size);
   letter-spacing: 0.035em;
 }
 
@@ -353,7 +355,7 @@
 
 @media (max-width: 760px) {
   .page {
-    --frame-gap: clamp(12px, 3.5vw, 20px);
+    --navigation-size: clamp(10px, 3.3vw, 13px);
     --identity-size: clamp(1.55rem, 7.5vw, 2.4rem);
   }
 
@@ -388,7 +390,6 @@
   .navigationCurrent {
     --marker-size: clamp(5px, 1.5vw, 6px);
     --marker-gap: clamp(5px, 1.5vw, 7px);
-    font-size: clamp(10px, 3.3vw, 13px);
   }
 
   .stage {
@@ -416,11 +417,6 @@
     padding-bottom: var(--stage-right-inset);
   }
 
-  .homeStatement {
-    max-width: 68ch;
-    font-size: clamp(10px, 2.9vw, 12px);
-  }
-
   .projectRow {
     gap: 6px;
     padding: clamp(7px, 1.25svh, 13px) 0;
@@ -428,36 +424,22 @@
 
   .projectMeta {
     flex-wrap: wrap;
-    gap: 6px;
-    font-size: clamp(7px, 2.25vw, 9px);
+    column-gap: 6px;
+    row-gap: 0;
   }
 
   .socialLink {
-    font-size: clamp(10px, 3vw, 12px);
-  }
-
-  .contactSocials .socialLink {
     min-height: 26px;
-    font-size: 12px;
   }
 
   .footer {
     gap: 8px;
-    font-size: 8px;
   }
 }
 
 @media (max-width: 430px) {
-  .language {
-    font-size: 9px;
-  }
-
   .contactPanel {
     gap: 12px;
-  }
-
-  .contactSocials .socialLink {
-    font-size: 10px;
   }
 }
 
@@ -514,17 +496,38 @@
     padding-bottom: var(--stage-right-inset);
   }
 
-  .homeStatement {
-    font-size: 11px;
-  }
-
   .projectRow {
     gap: 4px;
     padding: 4.5px 0;
   }
 
-  .projectMeta {
-    font-size: 8px;
+}
+
+@media (max-width: 760px), (pointer: coarse) and (max-height: 650px) {
+  .page {
+    --frame-gap: clamp(24px, 3.5vw, 28px);
   }
 
+  .sideControls {
+    left: 0;
+    width: calc(var(--frame-gap) - 4px);
+    align-items: center;
+    gap: 15px;
+  }
+
+  .language,
+  .themeOptions {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .language a,
+  .themeOption {
+    display: inline-flex;
+    min-width: 20px;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    padding-block: 3px;
+  }
 }
