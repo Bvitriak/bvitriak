@@ -32,4 +32,4 @@ Three.js загружается динамически после гидрата
 
 ## GitHub Pages
 
-Статический экспорт публикуется GitHub Actions на GitHub Pages. `NEXT_BASE_PATH` задаётся только при сборке для Pages; локальная сборка без переменной остаётся на корневом пути. Путь Pages применяется Next.js к маршрутам и собранным ассетам. Репозиторий настроен на GitHub Actions как источник Pages; workflow публикует сайт только из `main`.
+The deployment and local build both export the site at the domain root. GitHub Actions publishes from `main` to <https://www.bvitriak.site/>.
